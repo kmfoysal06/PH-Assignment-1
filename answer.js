@@ -1,5 +1,5 @@
 // question 1
-function describeValue() {
+function describeValue(g) {
     return `${typeof(g)} | ${g ? "truthy" : "falsy"}`;
 }
 
@@ -61,11 +61,29 @@ function getCngFare(distance, isNight = false, waitingMinutes = 0) {
     cost = cost + (waitingMinutes * 2);
 
     if(isNight) {
-        cost = cost + ((20 / cost) * 100); // 20% = 20/cost x 100
+        cost = cost + (cost * (20 / 100));
     }
     return cost;
 
 }
 
 // question 5
-function getChaseVerdict(target, scored, ballsLeft){}
+const getChaseVerdict = (target, scored, ballsLeft) => {
+    if(target <= scored) {
+        return "Won";
+    }
+    if(ballsLeft <= 0) {
+        return "Lost";
+    }
+    const requiredRate = ((target - scored) / ballsLeft) * 6;
+
+    if(requiredRate <= 6) {
+        return `Need ${(target - scored)} runs in ${ballsLeft} balls | Comfortable`;
+    }
+    if(requiredRate <= 12) {
+        return `Need ${(target - scored)} runs in ${ballsLeft} balls | Tough`;
+    }
+
+    return `Need ${(target - scored)} runs in ${ballsLeft} balls | Almost Impossible`;
+
+}
